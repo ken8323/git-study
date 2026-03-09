@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { scenarios, Scenario, ScenarioStep } from '@/lib/scenarios';
+import { scenarios, Scenario } from '@/lib/scenarios';
 
 export function useScenario() {
-    const [currentScenario, setCurrentScenario] = useState<Scenario | null>(scenarios[0]); // Default to first scenario
+    const [currentScenario] = useState<Scenario | null>(scenarios[0]); // Default to first scenario
     const [currentStepIndex, setCurrentStepIndex] = useState(0);
     const [isCompleted, setIsCompleted] = useState(false);
 

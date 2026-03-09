@@ -9,11 +9,11 @@ export type CommitNode = {
     parents: string[]; // parent commit ids
 };
 
-export function GitGraph({ commits, activeBranch }: { commits: CommitNode[], activeBranch: string }) {
+export function GitGraph({ commits }: { commits: CommitNode[], activeBranch: string }) {
     return (
         <div className="w-full glass-panel rounded-xl p-6 min-h-[300px] flex items-center justify-center relative overflow-hidden bg-white/50 dark:bg-zinc-900/50">
             {commits.length === 0 ? (
-                <div className="text-zinc-500 text-sm font-medium">No commits yet. Try "git commit".</div>
+                <div className="text-zinc-500 text-sm font-medium">No commits yet. Try &quot;git commit&quot;.</div>
             ) : (
                 <div className="relative flex flex-col gap-8 w-full items-center">
                     {/* Simple vertical graph representation for MVP */}

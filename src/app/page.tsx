@@ -18,7 +18,7 @@ export default function Home() {
     if (!isCompleted && currentStep) {
       const isMatch = checkCommand(cmd);
       if (isMatch) {
-        appendSystemMessage(`\n✅ ${currentStep.successMessage}\n`, 'output' as any); // using output since success type isn't fully set up in UI yet
+        appendSystemMessage(`\n✅ ${currentStep.successMessage}\n`, 'success');
       }
     }
   };

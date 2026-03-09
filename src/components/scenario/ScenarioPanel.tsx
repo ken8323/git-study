@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { CheckCircle2, CircleDashed } from "lucide-react";
 import { Scenario, ScenarioStep } from "@/lib/scenarios";
 
@@ -37,23 +37,22 @@ export function ScenarioPanel({
             </p>
 
             <div className="mt-2 flex flex-col gap-3">
-                {scenario.steps.map((step, idx) => {
+                {scenario.steps.map((step) => {
                     // Check if this step is past, current, or future
                     const stepIndex = scenario.steps.findIndex(s => s.id === step.id);
                     const currentIndex = currentStep ? scenario.steps.findIndex(s => s.id === currentStep.id) : scenario.steps.length;
 
                     const isPast = stepIndex < currentIndex || isCompleted;
                     const isCurrent = stepIndex === currentIndex && !isCompleted;
-                    const isFuture = stepIndex > currentIndex && !isCompleted;
 
                     return (
                         <div
                             key={step.id}
                             className={`flex gap-3 text-sm p-3 rounded-lg border transition-all ${isCurrent
-                                    ? "bg-white dark:bg-zinc-900 border-blue-300 dark:border-blue-700 shadow-sm"
-                                    : isPast
-                                        ? "bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-900/50 opacity-80"
-                                        : "bg-zinc-50/50 dark:bg-zinc-900/30 border-transparent opacity-50"
+                                ? "bg-white dark:bg-zinc-900 border-blue-300 dark:border-blue-700 shadow-sm"
+                                : isPast
+                                    ? "bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-900/50 opacity-80"
+                                    : "bg-zinc-50/50 dark:bg-zinc-900/30 border-transparent opacity-50"
                                 }`}
                         >
                             <div className="mt-0.5 shrink-0">

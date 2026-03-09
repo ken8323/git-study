@@ -2,11 +2,10 @@
 
 import { useState, useRef, useEffect } from 'react';
 import type { KeyboardEvent } from 'react';
-import { motion } from 'framer-motion';
 
 type OutputLine = {
     id: string;
-    type: 'input' | 'output' | 'error';
+    type: 'input' | 'output' | 'error' | 'success';
     content: string;
 };
 
@@ -36,7 +35,7 @@ export function TerminalSim({
 
     return (
         <div
-            className="w-full max-w-3xl glass-panel rounded-xl overflow-hidden font-mono text-sm bg-zinc-950/80 dark:bg-zinc-950/80 text-zinc-300 shadow-2xl relative"
+            className="text-left w-full max-w-3xl glass-panel rounded-xl overflow-hidden font-mono text-sm bg-zinc-950/80 dark:bg-zinc-950/80 text-zinc-300 shadow-2xl relative"
             onClick={() => inputRef.current?.focus()}
         >
             <div className="flex items-center px-4 py-2 border-b border-zinc-800 bg-zinc-900/50">
@@ -52,7 +51,8 @@ export function TerminalSim({
                 <div className="space-y-1 mb-2">
                     {history.map((line) => (
                         <div key={line.id} className={`${line.type === 'error' ? 'text-red-400' :
-                            line.type === 'input' ? 'text-white' : 'text-zinc-400'
+                            line.type === 'success' ? 'text-emerald-400 font-bold' :
+                                line.type === 'input' ? 'text-white' : 'text-zinc-400'
                             } whitespace-pre-wrap break-all`}>
                             {line.content}
                         </div>
