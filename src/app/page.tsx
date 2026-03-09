@@ -2,23 +2,40 @@
 
 import { TerminalSim } from "@/components/terminal/TerminalSim";
 import { GitGraph } from "@/components/graph/GitGraph";
+import { ScenarioPanel } from "@/components/scenario/ScenarioPanel";
 import { useTerminal } from "@/hooks/useTerminal";
+import { useScenario } from "@/hooks/useScenario";
 
 export default function Home() {
-  const { history, cwd, executeCommand, commits, branch } = useTerminal();
+  const { history, cwd, executeCommand, appendSystemMessage, commits, branch } = useTerminal();
+  const { currentScenario, currentStep, isCompleted, checkCommand } = useScenario();
+
+  const handleCommand = (cmd: string) => {
+    // 1. Execute the git logic
+    executeCommand(cmd);
+
+    // 2. Check if it matches the current learning scenario
+    if (!isCompleted && currentStep) {
+      const isMatch = checkCommand(cmd);
+      if (isMatch) {
+        appendSystemMessage(`\n✅ ${currentStep.successMessage}\n`, 'output' as any); // using output since success type isn't fully set up in UI yet
+      }
+    }
+  };
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen p-8 pt-32 gap-12 sm:p-20">
-      <main className="flex flex-col items-center gap-6 w-full max-w-6xl text-center">
-        <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl text-zinc-900 dark:text-zinc-50 drop-shadow-sm">
-          Gitを視覚的にマスターする
-        </h1>
-        <p className="text-lg text-zinc-600 dark:text-zinc-400 max-w-xl mx-auto mb-4">
-          ブラウザ上のターミナルで実際にコマンドを打ちながら、Gitの仕組みをリアルタイムなグラフで学べるインタラクティブな学習アプリです。
-        </p>
+    <div className="flex flex-col items-center justify-start min-h-screen p-8 pt-24 gap-8 sm:p-20">
+      <main className="flex flex-col items-center gap-8 w-full max-w-6xl text-center">
+
+        {/* Scenario Progress Panel at the top */}
+        <ScenarioPanel
+          scenario={currentScenario}
+          currentStep={currentStep}
+          isCompleted={isCompleted}
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
-          <TerminalSim history={history} cwd={cwd} executeCommand={executeCommand} />
+          <TerminalSim history={history} cwd={cwd} executeCommand={handleCommand} />
 
           <div className="flex flex-col gap-4">
             <div className="glass-panel px-4 py-2 rounded-xl text-left bg-zinc-950/80 dark:bg-zinc-950/80 border-b border-zinc-800 flex justify-between">

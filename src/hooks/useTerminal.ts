@@ -61,7 +61,15 @@ export function useTerminal() {
         }
     };
 
+    const appendSystemMessage = (message: string, type: 'output' | 'error' | 'success' = 'output') => {
+        setHistory(prev => [...prev, {
+            id: crypto.randomUUID(),
+            type: type as any,
+            content: message
+        }]);
+    };
+
     const clear = () => setHistory([]);
 
-    return { history, cwd, executeCommand, clear, commits, branch };
+    return { history, cwd, executeCommand, appendSystemMessage, clear, commits, branch };
 }
