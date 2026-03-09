@@ -1,0 +1,28 @@
+# Project Context: Git Study
+This is an interactive application for learning Git fundamentals through a live browser-based terminal simulator and visual commit graphs.
+
+## Core Tech Stack
+- **Framework:** Next.js 16 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS v4
+- **Animation:** Framer Motion
+- **Icons:** Lucide React
+
+## Design Philosophy & Guidelines
+- **Aesthetic:** Apple-like minimalism combined with Notion-like cleanliness.
+- **Visual Features:**
+  - Glassmorphism effects for floating elements (use the `.glass-panel` utility class).
+  - Clean typography (Inter font stack).
+  - Subtle micro-animations using Framer Motion (hover, tap, page transitions).
+- **Colors:** Avoid pure black/white. Use Zinc scales (`zinc-900`, `zinc-50`, etc.) and diffused shadows.
+
+## Code Conventions
+- Use Functional Components with React Hooks.
+- Prefer Server Components where possible; use `"use client"` only for interactivity/state.
+- Avoid `any` types; prefer strict TypeScript interfaces/types.
+- Utility classes for Tailwind should be grouped logically and managed via `clsx` and `tailwind-merge` (the `cn` utility function in `src/lib/utils.ts`).
+
+## Development Scripts
+- `npm run dev` - Start development server (usually on port 3000 or 3001)
+- `npm run build` - Build for production
+- `npm run lint` - Run ESLint
